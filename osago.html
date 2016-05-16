@@ -1,9 +1,9 @@
 
 <!-- We don't need full layout here, because this page will be parsed with Ajax-->
 <!-- Top Navbar-->
-<div class="pages navbar-through toolbar-through">
+<div class="pages navbar-fixed">
   <!-- Page, data-page contains page name-->
-  <div data-page="services" class="page">
+  <div data-page="osago" class="page">
     <div class="navbar">
       <div class="navbar-inner">
         <!-- We have home navbar without left link-->
@@ -15,13 +15,124 @@
     </div>
     <!-- Scrollable page content-->
     <div class="page-content">
-      <div class="content-block">
-        <div class="content-block-inner">
-          <p>Here is Services page!</p>
-          <p>Go <a href="#" class="back">back</a>   or go to <a href="about.html">About</a>   page.</p>
-          <p>Mauris posuere sit amet metus id venenatis. Ut ante dolor, tempor nec commodo rutrum, varius at sem. Nullam ac nisi non neque ornare pretium. Nulla mauris mauris, consequat et elementum sit amet, egestas sed orci. In hac habitasse platea dictumst.</p>
-          <p>Fusce eros lectus, accumsan eget mi vel, iaculis tincidunt felis. Nulla tincidunt pharetra sagittis. Fusce in felis eros. Nulla sit amet aliquam lorem, et gravida ipsum. Mauris consectetur nisl non sollicitudin tristique. Praesent vitae metus ac quam rhoncus mattis vel et nisi. Aenean aliquet, felis quis dignissim iaculis, lectus quam tincidunt ligula, et venenatis turpis risus sed lorem. Morbi eu metus elit. Ut vel diam dolor.</p>
-        </div>
+      <div class="list-block media-list">
+        <ul>
+          <li><a href="tel:+74232488428" class="item-link external item-content">
+              <div class="item-media"><img src="img/i-logo.png" width="44"/></div>
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title">Вызвать агента</div>
+                </div>
+                <div class="item-subtitle">Наш агент приедет к вам</div>
+              </div></a></li>
+        </ul>
+      </div>
+      <div class="list-block media-list">
+        <ul>
+          <li><a href="my.html" class="item-link item-content">
+              <div class="item-media"><img src="img/i-osago.png" width="44"/></div>
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title">Мои полисы</div>
+                </div>
+                <div class="item-subtitle">До окончания полиса - 55 дней</div>
+              </div></a></li>
+        </ul>
+      </div>
+      <div class="content-block-title">Проверка КБМ</div>
+      <div class="list-block">
+        <ul> 
+          <li><a href="#" class="item-link smart-select">
+              <select name="serial">
+                <option value="XXX" selected="selected">XXX</option>
+                <option value="CCC">CCC</option>
+                <option value="EEE">EEE</option>
+                <option value="BBB">BBB</option>
+              </select>
+              <div class="item-content">
+                <div class="item-inner">
+                  <div class="item-title">Серия</div>
+                </div>
+              </div></a></li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner"> 
+                <div class="item-title label">Фамилия</div>
+                <div class="item-input">
+                  <input type="text" placeholder="фамилия"/>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner"> 
+                <div class="item-title label">Имя</div>
+                <div class="item-input">
+                  <input type="text" placeholder="имя"/>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner"> 
+                <div class="item-title label">Отчество</div>
+                <div class="item-input">
+                  <input type="text" placeholder="отчество"/>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner"> 
+                <div class="item-title label">Дата рождения</div>
+                <div class="item-input">
+                  <input type="date" placeholder="дата рождения"/>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner"> 
+                <div class="item-title label">Серия В/У</div>
+                <div class="item-input">
+                  <input type="text" placeholder="дата рождения"/>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner"> 
+                <div class="item-title label">Номер В/У</div>
+                <div class="item-input">
+                  <input type="text" placeholder="дата рождения"/>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-media"><img src="http://dkbm-web.autoins.ru/dkbm-web-1.0/simpleCaptcha.png"/></div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner"> 
+                <div class="item-title label">Код с картинки</div>
+                <div class="item-input">
+                  <input type="text" placeholder="код"/>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="content-block"><a href="#" id="check-polis" class="button button-raised">Проверить</a></div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
