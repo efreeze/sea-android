@@ -8,7 +8,7 @@ var $$ = Dom7;
 myApp.loginScreen('.login-screen');
 setTimeout(function() {
     myApp.closeModal('.login-screen.modal-in');
-}, 5000);
+}, 1000);
 
 // Add view
 var mainView = myApp.addView('.view-main', {
@@ -22,6 +22,7 @@ $$('#check-polis').on('click', function (e) {
         contentType: 'application/json; charset: utf-8',
         dataType: 'json',
         data: 'bsoseries=ХХХ&bsonumber=123123213&answer=ыфвмвым',
+        headers: {'X-Requested-With': 'XMLHttpRequest'},
         success: function(e) {
             console.log(e);
         },
