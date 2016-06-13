@@ -8,7 +8,6 @@ var $$ = Dom7;
 myApp.loginScreen('.login-screen');
 setTimeout(function() {
     myApp.closeModal('.login-screen.modal-in');
-    console.log(document.getElementById('if-dkbm').contentWindow.document);
 }, 1000);
 
 // Add view
@@ -16,30 +15,18 @@ var mainView = myApp.addView('.view-main', {
     // Because we use fixed-through navbar we can enable dynamic navbar
     dynamicNavbar: true
 });
-// function getCookie(cname) {
-//     var name = cname + "=";
-//     var ca = document.cookie.split(';');
-//     console.log(ca);
-//     for(var i=0; i<ca.length; i++) {
-//         var c = ca[i];
-//         while (c.charAt(0)==' ') c = c.substring(1);
-//         if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
-//     }
-//     return "";
-// }
-// $$.ajax({
-//     method: 'GET',
-//     dataType: 'text',
-//     crossDomain: true,
-//     // xhrFields: {withCredentials: true},
-//     url: 'http://dkbm-web.autoins.ru/dkbm-web-1.0/bsostate.htm',
-//     success: function(data, textStatus, request) {
-//         console.log(request);
-//     },
-//     error: function(e) {
-//         console.log(e);
-//     }
-// });
+$$.ajax({
+    method: 'GET',
+    // crossDomain: true,
+    // xhrFields: {withCredentials: true},
+    url: 'http://dkbm-web.autoins.ru/dkbm-web-1.0/bsostate.htm',
+    success: function(data, textStatus, request) {
+        console.log(request.getAllResponseHeaders());
+    },
+    error: function(e) {
+        console.log(e);
+    }
+});
 $$('#check-polis').on('click', function (e) {
     var serial = $$('[name=serial]').val(),
         number = $$('[name=number]').val(),
