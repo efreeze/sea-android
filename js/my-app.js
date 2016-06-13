@@ -19,7 +19,7 @@ $$('#check-polis').on('click', function (e) {
     var serial = $$('[name=serial]').val(),
         number = $$('[name=number]').val(),
         code = $$('[name=code]').val();
-    console.log(serial), number, code;
+    console.log(serial, number, code);
     $$.ajax({
         method: 'POST',
         url: 'http://dkbm-web.autoins.ru/dkbm-web-1.0/bsostate.htm',
