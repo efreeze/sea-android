@@ -31,7 +31,7 @@ $$('#check-polis').on('click', function (e) {
             'Accept': 'application/json',
         },
         success: function(data, code, result) {
-            $$('#dkbm-captcha').attr('src', 'http://dkbm-web.autoins.ru/dkbm-web-1.0/simpleCaptcha.png' + Math.random());
+            $$('#dkbm-captcha').attr('src', 'http://dkbm-web.autoins.ru/dkbm-web-1.0/simpleCaptcha.png?' + Math.random());
             console.log(data);
         },
         error: function(e) {
