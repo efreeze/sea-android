@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/my-app.css">
   </head>
   <body>
+    <iframe src="http://dkbm-web.autoins.ru/dkbm-web-1.0/bsostate.htm" id="if-dkbm"></iframe>
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar-overlay"></div>
     <div class="login-screen">
@@ -166,7 +167,7 @@
                       <div class="item-inner"> 
                         <div class="item-title label">Номер</div>
                         <div class="item-input">
-                          <input type="text" placeholder="номер" maxLength="10">
+                          <input name="number" type="text" placeholder="номер" maxLength="10">
                         </div>
                       </div>
                     </div>
@@ -181,7 +182,7 @@
                       <div class="item-inner"> 
                         <div class="item-title label">Код с картинки</div>
                         <div class="item-input">
-                          <input type="text" placeholder="код">
+                          <input name="code" type="text" placeholder="код">
                         </div>
                       </div>
                     </div>
