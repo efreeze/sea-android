@@ -15,23 +15,11 @@ var mainView = myApp.addView('.view-main', {
     // Because we use fixed-through navbar we can enable dynamic navbar
     dynamicNavbar: true
 });
-$$.ajax({
-    method: 'GET',
-    // crossDomain: true,
-    // xhrFields: {withCredentials: true},
-    url: 'http://dkbm-web.autoins.ru/dkbm-web-1.0/bsostate.htm',
-    success: function(data, textStatus, request) {
-        console.log(request.getAllResponseHeaders());
-    },
-    error: function(e) {
-        console.log(e);
-    }
-});
 $$('#check-polis').on('click', function (e) {
     var serial = $$('[name=serial]').val(),
         number = $$('[name=number]').val(),
         code = $$('[name=code]').val();
-    console.log(serial);
+    console.log(serial), number, code;
     $$.ajax({
         method: 'POST',
         url: 'http://dkbm-web.autoins.ru/dkbm-web-1.0/bsostate.htm',
