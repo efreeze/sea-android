@@ -15,11 +15,16 @@ var mainView = myApp.addView('.view-main', {
     // Because we use fixed-through navbar we can enable dynamic navbar
     dynamicNavbar: true
 });
+
 $$('#check-polis').on('click', function (e) {
     var serial = $$('[name=serial]').val(),
         number = $$('[name=number]').val(),
         code = $$('[name=code]').val();
     console.log(serial, number, code);
+    console.log(1, document.getElementById('dkbm'));
+    console.log(2, document.getElementById('dkbm').contentWindow);
+    console.log(3, document.getElementById('dkbm').contentWindow.document);
+    console.log(4, document.getElementById('dkbm').contentWindow.document.cookie);
     $$.ajax({
         method: 'POST',
         url: 'http://dkbm-web.autoins.ru/dkbm-web-1.0/bsostate.htm',
@@ -32,7 +37,8 @@ $$('#check-polis').on('click', function (e) {
         },
         success: function(data, code, result) {
             $$('#dkbm-captcha').attr('src', 'http://dkbm-web.autoins.ru/dkbm-web-1.0/simpleCaptcha.png?' + Math.random());
-            console.log(data);
+
+            console.log(data, result);
         },
         error: function(e) {
             console.log(e);
