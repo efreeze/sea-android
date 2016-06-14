@@ -5,11 +5,6 @@ var myApp = new Framework7({material: true});
 // Export selectors engine
 var $$ = Dom7;
 
-myApp.loginScreen('.login-screen');
-setTimeout(function() {
-    myApp.closeModal('.login-screen.modal-in');
-}, 1000);
-
 // Add view
 var mainView = myApp.addView('.view-main', {
     // Because we use fixed-through navbar we can enable dynamic navbar
@@ -44,7 +39,10 @@ $$('#check-polis').on('click', function (e) {
             console.log(e);
         }
     });
-})
+});
+myApp.onPageInit('my', function (page) {
+    console.log(1234);
+});
 //
 // // Callbacks to run specific code for specific pages, for example for About page:
 // myApp.onPageInit('about', function (page) {
