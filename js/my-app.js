@@ -40,9 +40,33 @@ $$('#check-polis').on('click', function (e) {
         }
     });
 });
-myApp.onPageInit('my', function (page) {
-    console.log(1234);
+myApp.onPageInit('mulct', function (page) {
+    $$('#check-mulct').on('click', function (e) {
+        var sts = $$('[name=mulct_sts]').val(),
+            vu = $$('[name=mulct_vu]').val();
+        $$.ajax({
+            method: 'POST',
+            url: 'http://onlinegibdd.ru/dir/modules/soap/find_bill.php',
+            // contentType: 'application/x-www-form-urlencoded',
+            // dataType: 'json',
+            data: 'used_auto_cdi=' + sts + '&used_voditel_number=' + vu + '&used_user_mail=&user_id=',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            success: function(data, code, result) {
+                if (data.trim() == 'NoBill') {
+                    myApp.alert('Неоплаченных штрафов не найдено!', 'Штрафы ГИБДД');
+                } else {
+                    myApp.alert('Есть штрафы!', 'Штрафы ГИБДД');
+                }
+            },
+            error: function(e) {
+                console.log('err', e);
+            }
+        });
+    });
 });
+
 //
 // // Callbacks to run specific code for specific pages, for example for About page:
 // myApp.onPageInit('about', function (page) {
