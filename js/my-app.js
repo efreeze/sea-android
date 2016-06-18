@@ -44,9 +44,14 @@ myApp.onPageInit('index', function (page) {
     });
 });
 myApp.onPageInit('mulct', function (page) {
+    $$('[name=mulct_sts]').val(window.localStorage.sts);
+    $$('[name=mulct_vu]').val(window.localStorage.vu);
     $$('#check-mulct').on('click', function (e) {
         var sts = $$('[name=mulct_sts]').val(),
             vu = $$('[name=mulct_vu]').val();
+        window.localStorage.sts = sts;
+        window.localStorage.vu = vu;
+        myApp.showIndicator();
         $$.ajax({
             method: 'POST',
             url: 'http://onlinegibdd.ru/dir/modules/soap/find_bill.php',
@@ -57,6 +62,7 @@ myApp.onPageInit('mulct', function (page) {
                 'X-Requested-With': 'XMLHttpRequest'
             },
             success: function(data, code, result) {
+                myApp.hideIndicator();
                 if (data.trim() == 'NoBill') {
                     myApp.alert('Неоплаченных штрафов не найдено!', 'Штрафы ГИБДД');
                 } else {
@@ -64,9 +70,130 @@ myApp.onPageInit('mulct', function (page) {
                 }
             },
             error: function(e) {
+                myApp.hideIndicator();
                 myApp.alert('Указаны неверные данные', '');
             }
         });
+    });
+});
+myApp.onPageInit('osago-fiz', function (page) {
+    var calendarDefault = myApp.calendar({
+        input: '[name=birtdate]',
+    });
+    reload_kbmcaptcha();
+    $$('[name=firstname]').val(window.localStorage.firstname);
+    $$('[name=lastname]').val(window.localStorage.lastname);
+    $$('[name=patronymic]').val(window.localStorage.patronymic);
+    $$('[name=birtdate]').val(window.localStorage.birtdate);
+    $$('[name=serial]').val(window.localStorage.fiz_serial);
+    $$('[name=number]').val(window.localStorage.fiz_number);
+    $$('#check-kbm').on('click', function (e) {
+        var firstname = $$('[name=firstname]').val(),
+            lastname = $$('[name=lastname]').val(),
+            patronymic = $$('[name=patronymic]').val(),
+            birtdate = $$('[name=birtdate]').val(),
+            serial = $$('[name=serial]').val(),
+            number = $$('[name=number]').val(),
+            code = $$('[name=code]').val(),
+            JSID = $$('[name=JSID]').val(),
+            data = {
+                'vu_fio': [firstname, lastname, patronymic].join(' '),
+                'vu_bdate': birtdate,
+                'vu_num': [serial, number].join(' '),
+                'skolko': 'lim',
+                'datequery': new Date().toISOString().substring(0, 10),
+                'kbmcaptcha': code,
+                'JSID': JSID,
+            };
+        window.localStorage.firstname = firstname;
+        window.localStorage.lastname = lastname;
+        window.localStorage.patronymic = patronymic;
+        window.localStorage.birtdate = birtdate;
+        window.localStorage.fiz_serial = serial;
+        window.localStorage.fiz_number = number;
+        if ([firstname, lastname, patronymic, birtdate, serial, number, code].filter(function(val) {return val != ''}).length === 7) {
+            myApp.showIndicator();
+            $$.ajax({
+                method: 'POST',
+                url: 'https://kbm-osago.ru/engine/kbm',
+                dataType: 'json',
+                data: data,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function(data, code, result) {
+                    myApp.hideIndicator();
+                    reload_kbmcaptcha();
+                    if (data.errorMessage) {
+                        myApp.alert(data.errorMessage, '');
+                    } else {
+                        myApp.alert(data.kbmValue, '');
+                    }
+                },
+                error: function(e) {
+                    myApp.hideIndicator();
+                    myApp.alert('Указаны неверные данные', '');
+                }
+            });
+        } else {
+            myApp.alert('Необходимо заполнить все поля!', '');
+        }
+    });
+});
+myApp.onPageInit('osago-ur', function (page) {
+    var calendarDefault = myApp.calendar({
+        input: '[name=birtdate]',
+    });
+    reload_kbmcaptcha();
+    $$('[name=inn]').val(window.localStorage.inn);
+    $$('[name=vin]').val(window.localStorage.vin);
+    $$('[name=number]').val(window.localStorage.ur_number);
+    $$('#check-kbm').on('click', function (e) {
+        var inn = $$('[name=inn]').val(),
+            vin = $$('[name=vin]').val(),
+            number = $$('[name=number]').val(),
+            code = $$('[name=code]').val(),
+            JSID = $$('[name=JSID]').val(),
+            data = {
+                'pf': 'company',
+                'inn': inn,
+                'vin': vin,
+                'skolko': 'unlim',
+                'datequery': new Date().toISOString().substring(0, 10),
+                'kbmcaptcha': code,
+                'JSID': JSID,
+            };
+
+        if ([inn, vin, number, code].filter(function(val) {return val != ''}).length === 4) {
+            myApp.showIndicator();
+            window.localStorage.inn = inn;
+            window.localStorage.vin = vin;
+            window.localStorage.ur_number = number;
+            $$.ajax({
+                method: 'POST',
+                url: 'https://kbm-osago.ru/engine/kbm',
+                dataType: 'json',
+                data: data,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function(data, code, result) {
+                    myApp.hideIndicator();
+                    reload_kbmcaptcha();
+                    if (data.errorMessage) {
+                        myApp.alert(data.errorMessage, '');
+                    } else {
+                        myApp.alert(data.kbmValue, '');
+                    }
+                },
+                error: function(e) {
+                    myApp.hideIndicator();
+                    myApp.alert('Указаны неверные данные', '');
+                }
+            });
+        } else {
+            myApp.alert('Необходимо заполнить все поля!', '');
+        }
     });
 });
 myApp.onPageInit('my', function (page) {
@@ -135,6 +262,28 @@ function reload_captcha() {
     $$.ajax({
         method: 'POST',
         url: 'https://kbm-osago.ru/engine/check_policy_captcha',
+        dataType: 'json',
+        data: 'JSID=',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json',
+        },
+        success: function(data, code, result) {
+            $$('#dkbm-captcha').attr('src','data:image/png;base64,' + data.image)
+            $$('[name=JSID]').val(data.JSID);
+            myApp.hideIndicator();
+        },
+        error: function(e) {
+            myApp.hideIndicator();
+            myApp.alert('Указаны неверные данные', '');
+        }
+    });
+}
+function reload_kbmcaptcha() {
+    myApp.showIndicator();
+    $$.ajax({
+        method: 'POST',
+        url: 'https://kbm-osago.ru/engine/kbmcaptcha',
         dataType: 'json',
         data: 'JSID=',
         headers: {

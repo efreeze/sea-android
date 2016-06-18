@@ -20,7 +20,7 @@
               <div class="item-inner"> 
                 <div class="item-title label">Фамилия</div>
                 <div class="item-input">
-                  <input type="text" placeholder="фамилия"/>
+                  <input name="firstname" type="text" placeholder="фамилия"/>
                 </div>
               </div>
             </div>
@@ -30,7 +30,7 @@
               <div class="item-inner"> 
                 <div class="item-title label">Имя</div>
                 <div class="item-input">
-                  <input type="text" placeholder="имя"/>
+                  <input name="lastname" type="text" placeholder="имя"/>
                 </div>
               </div>
             </div>
@@ -40,7 +40,7 @@
               <div class="item-inner"> 
                 <div class="item-title label">Отчество</div>
                 <div class="item-input">
-                  <input type="text" placeholder="отчество"/>
+                  <input name="patronymic" type="text" placeholder="отчество"/>
                 </div>
               </div>
             </div>
@@ -50,7 +50,7 @@
               <div class="item-inner"> 
                 <div class="item-title label">Дата рождения</div>
                 <div class="item-input">
-                  <input type="date" placeholder="дата рождения"/>
+                  <input name="birtdate" type="date" placeholder="дата рождения"/>
                 </div>
               </div>
             </div>
@@ -60,7 +60,7 @@
               <div class="item-inner"> 
                 <div class="item-title label">Серия В/У</div>
                 <div class="item-input">
-                  <input type="text" placeholder="дата рождения"/>
+                  <input name="serial" type="text" placeholder="серия в/у" maxlength="4"/>
                 </div>
               </div>
             </div>
@@ -70,14 +70,14 @@
               <div class="item-inner"> 
                 <div class="item-title label">Номер В/У</div>
                 <div class="item-input">
-                  <input type="text" placeholder="дата рождения"/>
+                  <input name="number" type="text" placeholder="номер в/у" maxlength="6"/>
                 </div>
               </div>
             </div>
           </li>
           <li>
             <div class="item-content">
-              <div class="item-media"><img src="http://dkbm-web.autoins.ru/dkbm-web-1.0/simpleCaptcha.png"/></div>
+              <div class="item-media"><img id="dkbm-captcha"/></div>
             </div>
           </li>
           <li>
@@ -85,13 +85,15 @@
               <div class="item-inner"> 
                 <div class="item-title label">Код с картинки</div>
                 <div class="item-input">
-                  <input type="text" placeholder="код"/>
+                  <input name="code" type="text" placeholder="код"/>
                 </div>
               </div>
             </div>
           </li>
           <li>
-            <div class="content-block"><a href="#" id="check-polis" class="button button-raised">Проверить</a></div>
+            <div class="content-block">
+              <input name="JSID" type="hidden"/><a href="#" id="check-kbm" class="button button-raised">Проверить</a>
+            </div>
           </li>
         </ul>
       </div>

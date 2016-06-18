@@ -20,7 +20,7 @@
               <div class="item-inner"> 
                 <div class="item-title label">ИНН</div>
                 <div class="item-input">
-                  <input type="text" placeholder="инн"/>
+                  <input name="inn" type="text" placeholder="инн" maxlength="10"/>
                 </div>
               </div>
             </div>
@@ -30,17 +30,7 @@
               <div class="item-inner"> 
                 <div class="item-title label">VIN</div>
                 <div class="item-input">
-                  <input type="text" placeholder="vin"/>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <div class="item-inner"> 
-                <div class="item-title label">Гос.номер</div>
-                <div class="item-input">
-                  <input type="text" placeholder="а000ааа124"/>
+                  <input name="vin" type="text" placeholder="vin" maxlength="17"/>
                 </div>
               </div>
             </div>
@@ -50,24 +40,14 @@
               <div class="item-inner"> 
                 <div class="item-title label">Номер кузова</div>
                 <div class="item-input">
-                  <input type="text" placeholder="дата рождения"/>
+                  <input name="number" type="text" placeholder="номер кузова"/>
                 </div>
               </div>
             </div>
           </li>
           <li>
             <div class="item-content">
-              <div class="item-inner"> 
-                <div class="item-title label">Номер шасси</div>
-                <div class="item-input">
-                  <input type="text" placeholder="дата рождения"/>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <div class="item-media"><img src="http://dkbm-web.autoins.ru/dkbm-web-1.0/simpleCaptcha.png"/></div>
+              <div class="item-media"><img id="dkbm-captcha"/></div>
             </div>
           </li>
           <li>
@@ -75,13 +55,15 @@
               <div class="item-inner"> 
                 <div class="item-title label">Код с картинки</div>
                 <div class="item-input">
-                  <input type="text" placeholder="код"/>
+                  <input name="code" type="text" placeholder="код"/>
                 </div>
               </div>
             </div>
           </li>
           <li>
-            <div class="content-block"><a href="#" id="check-polis" class="button button-raised">Проверить</a></div>
+            <div class="content-block">
+              <input name="JSID" type="hidden"/><a href="#" id="check-kbm" class="button button-raised">Проверить</a>
+            </div>
           </li>
         </ul>
       </div>
