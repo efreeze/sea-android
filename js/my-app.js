@@ -1,42 +1,45 @@
-// Initialize your app
-var myApp = new Framework7({material: true});
+var $$ = Dom7;
 
+// Initialize your app
+var myApp = new Framework7({init:false, material: true});
 
 // Export selectors engine
-var $$ = Dom7;
 
 // Add view
 var mainView = myApp.addView('.view-main', {
-    // Because we use fixed-through navbar we can enable dynamic navbar
     dynamicNavbar: true
 });
 
-$$('#check-polis').on('click', function (e) {
-    var serial = $$('[name=serial]').val(),
-        number = $$('[name=number]').val(),
-        code = $$('[name=code]').val();
-    console.log(serial, number, code);
-    console.log(1, document.getElementById('dkbm'));
-    console.log(2, document.getElementById('dkbm').contentWindow);
-    console.log(3, document.getElementById('dkbm').contentWindow.document);
-    console.log(4, document.getElementById('dkbm').contentWindow.document.cookie);
-    $$.ajax({
-        method: 'POST',
-        url: 'http://dkbm-web.autoins.ru/dkbm-web-1.0/bsostate.htm',
-        contentType: 'application/x-www-form-urlencoded',
-        dataType: 'json',
-        data: 'bsoseries=' + serial + '&bsonumber=' + number + '&answer=' + code,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Accept': 'application/json',
-        },
-        success: function(data, code, result) {
-            $$('#dkbm-captcha').attr('src', 'http://dkbm-web.autoins.ru/dkbm-web-1.0/simpleCaptcha.png?' + Math.random());
-
-            console.log(data, result);
-        },
-        error: function(e) {
-            console.log(e);
+myApp.onPageInit('index', function (page) {
+    reload_captcha();
+    $$('#check-polis').on('click', function (e) {
+        var serial = $$('[name=serial]').val(),
+            number = $$('[name=number]').val(),
+            code = $$('[name=code]').val(),
+            JSID = $$('[name=JSID]').val();
+        if ([serial, number, code, JSID].filter(function(val) {return val != ''}).length === 4) {
+            myApp.showIndicator();
+            $$.ajax({
+                method: 'POST',
+                url: 'https://kbm-osago.ru/engine/check_policy',
+                dataType: 'json',
+                data: 'seriya=' + serial + '&osago=' + number + '&captcha=' + code + '&JSID=' + JSID,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json',
+                },
+                success: function(data, code, result) {
+                    myApp.hideIndicator();
+                    showOsago(data);
+                    reload_captcha();
+                },
+                error: function(e) {
+                    myApp.hideIndicator();
+                    myApp.alert('Указаны неверные данные', '');
+                }
+            });
+        } else {
+            myApp.alert('Необходимо заполнить все поля!', '');
         }
     });
 });
@@ -61,46 +64,181 @@ myApp.onPageInit('mulct', function (page) {
                 }
             },
             error: function(e) {
-                console.log('err', e);
+                myApp.alert('Указаны неверные данные', '');
             }
         });
     });
 });
+myApp.onPageInit('my', function (page) {
+    var polices = JSON.parse(window.localStorage.getItem('polices'));
+    if (!polices) {
+        polices = [];
+    }
+    if (polices.length > 0) {
+        polices.map(function(val, idx) {
+            var endDate = val.policyEndDate.split('.'),
+                days = datesDiff(new Date(endDate[2], endDate[1] - 1, endDate[0]), new Date(), 'days'),
+                days_left = 'Действителен еще ';
+            if (days < 0) {
+                days *= -1;
+                days_left = 'Не действителен ';
+            }
+            days_left += days + ' ' + declOfNum(days, ['день', 'дня', 'дней'])
+            var item = '' +
+                '<li id="item-' + idx + '" data-idx="' + idx + '">' +
+                '   <a class="item-content item-link my-polis">' +
+                '       <div class="item-media"><img src="img/i-osago.png" width="44"></div>' +
+                '       <div class="item-inner">' +
+                '           <div class="item-title-row">' +
+                '               <div class="item-title">' + val.insCompanyName + ' (' + val.bsoSeries +' ' + val.bsoNumber + ')</div>' +
+                '           </div>' +
+                '           <div class="item-subtitle">' + days_left + '</div>' +
+                '       </div>' +
+                '   </a>' +
+                '</li>';
+            $$('#my-list').append(item);
+        });
+    }
 
-//
-// // Callbacks to run specific code for specific pages, for example for About page:
-// myApp.onPageInit('about', function (page) {
-//     // run createContentPage func after link was clicked
-//     $$('.create-page').on('click', function () {
-//         createContentPage();
-//     });
-// });
-//
-// // Generate dynamic page
-// var dynamicPageIndex = 0;
-// function createContentPage() {
-// 	mainView.router.loadContent(
-//         '<!-- Top Navbar-->' +
-//         '<div class="navbar">' +
-//         '  <div class="navbar-inner">' +
-//         '    <div class="left"><a href="#" class="back link"><i class="icon icon-back"></i><span>Back</span></a></div>' +
-//         '    <div class="center sliding">Dynamic Page ' + (++dynamicPageIndex) + '</div>' +
-//         '  </div>' +
-//         '</div>' +
-//         '<div class="pages">' +
-//         '  <!-- Page, data-page contains page name-->' +
-//         '  <div data-page="dynamic-pages" class="page">' +
-//         '    <!-- Scrollable page content-->' +
-//         '    <div class="page-content">' +
-//         '      <div class="content-block">' +
-//         '        <div class="content-block-inner">' +
-//         '          <p>Here is a dynamic page created on ' + new Date() + ' !</p>' +
-//         '          <p>Go <a href="#" class="back">back</a> or go to <a href="services.html">Services</a>.</p>' +
-//         '        </div>' +
-//         '      </div>' +
-//         '    </div>' +
-//         '  </div>' +
-//         '</div>'
-//     );
-// 	return;
-// }
+    $$('.my-polis').on('click', function (e) {
+        var idx = $$(this).parents('li').data('idx');
+        showOsago(polices[idx], true, idx);
+    });
+});
+function datesDiff(date1, date2, interval) {
+    var second=1000, minute=second*60, hour=minute*60, day=hour*24, week=day*7;
+    date1 = new Date(date1);
+    date2 = new Date(date2);
+    var timediff = date1 - date2;
+    if (isNaN(timediff)) return NaN;
+    switch (interval) {
+        case "years": return date2.getFullYear() - date1.getFullYear();
+        case "months": return (
+            ( date2.getFullYear() * 12 + date2.getMonth() )
+            -
+            ( date1.getFullYear() * 12 + date1.getMonth() )
+        );
+        case "weeks"  : return Math.floor(timediff / week);
+        case "days"   : return Math.floor(timediff / day);
+        case "hours"  : return Math.floor(timediff / hour);
+        case "minutes": return Math.floor(timediff / minute);
+        case "seconds": return Math.floor(timediff / second);
+        default: return undefined;
+    }
+}
+function declOfNum(number, titles) {
+    cases = [2, 0, 1, 1, 1, 2];
+    return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
+}
+function reload_captcha() {
+    myApp.showIndicator();
+    $$.ajax({
+        method: 'POST',
+        url: 'https://kbm-osago.ru/engine/check_policy_captcha',
+        dataType: 'json',
+        data: 'JSID=',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json',
+        },
+        success: function(data, code, result) {
+            $$('#dkbm-captcha').attr('src','data:image/png;base64,' + data.image)
+            $$('[name=JSID]').val(data.JSID);
+            myApp.hideIndicator();
+        },
+        error: function(e) {
+            myApp.hideIndicator();
+            myApp.alert('Указаны неверные данные', '');
+        }
+    });
+}
+function showOsago(data, no_button, idx) {
+    if (data.errorMessage) {
+        myApp.alert(data.errorMessage, '');
+    } else {
+        var html =
+            '<div class="pages">' +
+            '   <div data-page="dynamic-pages" class="page">' +
+            '       <div class="navbar">' +
+            '           <div class="navbar-inner">' +
+            '               <div class="left"><a href="#" class="back link"><i class="icon icon-back"></i></a></div>' +
+            '               <div class="center sliding">Полис ОСАГО</div>';
+        if (no_button) {
+            html += '               <div class="right"><a href="#" id="del-osago" class="back link" data-idx="' + idx + '">Удалить</a></div>';
+        }
+        html += '           </div>' +
+            '       </div>' +
+            '       <div class="page-content">';
+        if (!no_button) {
+            html += '           <a href="#" id="add-osago" class="floating-button color-red"><i class="icon icon-plus"></i></a>';
+        }
+        html += '           <div class="content-block-title">Общая информация</div>' +
+            '           <div class="list-block">' +
+            '               <ul>' +
+            '                   <li class="item-content">' +
+            '                       <div class="item-inner">' +
+            '                           <div class="item-title">' + data.insCompanyName +'</div>' +
+            '                           <div class="item-after">' + data.bsoSeries +' ' + data.bsoNumber +'</div>' +
+            '                       </div>' +
+            '                   </li>' +
+            '                   <li class="item-content">' +
+            '                       <div class="item-inner">' +
+            '                           <div class="item-title">' + data.bsoStatusName +'</div>' +
+            '                       </div>' +
+            '                   </li>' +
+            '                   <li class="item-content">' +
+            '                       <div class="item-inner">' +
+            '                           <div class="item-title">Дата выдачи</div>' +
+            '                           <div class="item-after">' + data.policyCreateDate +'</div>' +
+            '                       </div>' +
+            '                   </li>' +
+            '               </ul>' +
+            '           </div>' +
+            '           <div class="content-block-title">Действителен</div>' +
+            '           <div class="list-block">' +
+            '               <ul>' +
+            '                   <li class="item-content">' +
+            '                       <div class="item-inner">' +
+            '                           <div class="item-title">С</div>' +
+            '                           <div class="item-after">' + data.policyBeginDate +'</div>' +
+            '                       </div>' +
+            '                   </li>' +
+            '                   <li class="item-content">' +
+            '                       <div class="item-inner">' +
+            '                           <div class="item-title">По</div>' +
+            '                           <div class="item-after">' + data.policyEndDate +'</div>' +
+            '                       </div>' +
+            '                   </li>' +
+            '               </ul>' +
+            '           </div>' +
+            '       </div>' +
+            '   </div>' +
+            '</div>';
+        mainView.router.loadContent(html);
+        $$('#add-osago').on('click', function() {
+            if (myApp.confirm('Добавить в "Мои полисы"?', '', function() {
+                var polices = JSON.parse(window.localStorage.getItem('polices'));
+                if (!polices) {
+                    polices = [];
+                }
+                if (polices.indexOf(data) < 0) {
+                    polices.push(data);
+                    window.localStorage.setItem('polices', JSON.stringify(polices));
+                }
+            }));
+        });
+        $$('#del-osago').on('click', function() {
+            var polices = JSON.parse(window.localStorage.getItem('polices'));
+            if (!polices) {
+                polices = [];
+            }
+            if (polices.indexOf(data) < 0) {
+                polices.splice($$(this).data('idx'), 1);
+                $$(('#item-' + idx)).remove();
+                window.localStorage.setItem('polices', JSON.stringify(polices));
+            }
+        });
+    }
+    return;
+}
+myApp.init();
