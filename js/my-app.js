@@ -397,7 +397,7 @@ function showOsago(data, no_button, idx) {
 }
 myApp.init();
 
-if (device.platform == 'Android') {
+if (window.device.platform == 'Android') {
     document.addEventListener("backbutton", onBackKeyDown, false);
     function onBackKeyDown() {
         console.log(arguments);
