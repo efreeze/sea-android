@@ -10,11 +10,6 @@ var mainView = myApp.addView('.view-main', {
     dynamicNavbar: true
 });
 
-document.addEventListener("backbutton", function() {
-    console.log(arguments);
-}, false);
-
-
 myApp.onPageInit('index', function (page) {
     reload_captcha();
     $$('#check-polis').on('click', function (e) {
@@ -395,14 +390,13 @@ function showOsago(data, no_button, idx) {
     }
     return;
 }
-myApp.init();
 
-// if (window.device.platform == 'Android') {
-document.addEventListener("deviceready", onDeviceReady, false);
-    function onDeviceReady() {
-        document.addEventListener("backbutton", function (e) {
-            e.preventDefault();
-            console.log(arguments);
-        }, false );
+function onDeviceReady() {
+    myApp.init();
+    console.log('--', arguments);
+    document.addEventListener("backbutton", onBackKey, false);
+    function onBackKey(e) {
+        e.preventDefault();
+        console.log('==', arguments);
+    }
 }
-// }
