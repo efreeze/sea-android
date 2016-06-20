@@ -391,12 +391,12 @@ function showOsago(data, no_button, idx) {
     return;
 }
 
+function onBackKey(e) {
+    e.preventDefault();
+    mainView.router.back();
+}
+
 function onDeviceReady() {
-    myApp.init();
-    console.log('--', arguments);
     document.addEventListener("backbutton", onBackKey, false);
-    function onBackKey(e) {
-        e.preventDefault();
-        console.log('==', arguments);
-    }
+    myApp.init();
 }
