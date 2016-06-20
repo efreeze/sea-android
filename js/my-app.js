@@ -10,6 +10,11 @@ var mainView = myApp.addView('.view-main', {
     dynamicNavbar: true
 });
 
+document.addEventListener("backbutton", function() {
+    console.log(arguments);
+}, false);
+
+
 myApp.onPageInit('index', function (page) {
     reload_captcha();
     $$('#check-polis').on('click', function (e) {
