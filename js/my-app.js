@@ -232,6 +232,30 @@ myApp.onPageInit('my', function (page) {
         showOsago(polices[idx], true, idx);
     });
 });
+myApp.onPageInit('my-add', function (page) {
+    console.log($$('.add-osago'));
+    $$('.add-polis').on('click', function() {
+        if (myApp.confirm('Добавить в "Мои полисы"?', '', function() {
+            var polices = JSON.parse(window.localStorage.getItem('polices'));
+            if (!polices) {
+                polices = [];
+            }
+            var data = {
+                "bsoNumber": $$('input[name=number]').val(),
+                "insCompanyName":$$('input[name=company]').val(),
+                "bsoSeries":$$('select[name=serial]').val(),
+                "changeDate":$$('input[name=date]').val(),
+                "policyEndDate":"03.08.2016",
+                "bsoStatusName":"Находится у страхователя"
+            }
+            if (polices.indexOf(data) < 0) {
+                polices.push(data);
+                window.localStorage.setItem('polices', JSON.stringify(polices));
+            }
+            mainView.router.back();
+        }));
+    });
+});
 function datesDiff(date1, date2, interval) {
     var second=1000, minute=second*60, hour=minute*60, day=hour*24, week=day*7;
     date1 = new Date(date1);
@@ -400,3 +424,20 @@ function onDeviceReady() {
     document.addEventListener("backbutton", onBackKey, false);
     myApp.init();
 }
+
+document.addEventListener('deviceready', function () {
+    // Android customization
+    cordova.plugins.backgroundMode.setDefaults({ text:'Doing heavy tasks.'});
+    // Enable background mode
+    cordova.plugins.backgroundMode.enable();
+
+    // Called when background mode has been activated
+    cordova.plugins.backgroundMode.onactivate = function () {
+        setTimeout(function () {
+            // Modify the currently displayed notification
+            cordova.plugins.backgroundMode.configure({
+                text:'Running in background for more than 5s now.'
+            });
+        }, 5000);
+    }
+}, false);

@@ -71,6 +71,7 @@
     <plugin name="cordova-plugin-statusbar" spec="~2.1.2" />
     <!-- <plugin name="cordova-plugin-vibration" spec="~2.1.0" /> -->
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
+    <plugin name="de.appplant.cordova.plugin.background-mode" version="0.6.3" />
 
     <icon src="img/i-logo.png" />
     <platform name="android">
