@@ -423,9 +423,6 @@ function onBackKey(e) {
 function onDeviceReady() {
     document.addEventListener("backbutton", onBackKey, false);
     myApp.init();
-}
-
-document.addEventListener('deviceready', function () {
     // Android customization
     cordova.plugins.backgroundMode.setDefaults({ text:'Doing heavy tasks.'});
     // Enable background mode
@@ -440,4 +437,4 @@ document.addEventListener('deviceready', function () {
             });
         }, 5000);
     }
-}, false);
+}
