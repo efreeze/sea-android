@@ -446,14 +446,14 @@ function chechPolices () {
             });
         }
     });
-    setTimeout(chechPolices, 5000);
+    setTimeout(chechPolices, 60000 * 30);
 }
 
 function background() {
     if (cordova && cordova.plugins && cordova.plugins.backgroundMode) {
         console.log('background start');
         // Android customization
-        cordova.plugins.backgroundMode.setDefaults({});
+        cordova.plugins.backgroundMode.setDefaults({title: 'Проверка полисов', text: 'Полисы актуальны'});
         // Enable background mode
         cordova.plugins.backgroundMode.enable();
 
