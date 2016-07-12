@@ -437,7 +437,7 @@ function onBackKey(e) {
 function chechPolices () {
     console.log('check start');
     var polices = JSON.parse(window.localStorage.getItem('polices'));
-    polices.map(function(item, index) {
+    polices.map(function(val, index) {
         var endDate = val.policyEndDate.split('.'),
             days = datesDiff(new Date(endDate[2], endDate[1] - 1, endDate[0]), new Date(), 'days');
         if (days <= 7) {
