@@ -228,11 +228,11 @@ function renderPolices() {
             $$('#my-list').append(item);
         });
     }
+    return polices;
 }
 
 myApp.onPageInit('my', function (page) {
-    renderPolices();
-
+    var polices = renderPolices();
     $$('.my-polis').on('click', function (e) {
         var idx = $$(this).parents('li').data('idx');
         showOsago(polices[idx], true, idx);
