@@ -435,6 +435,7 @@ function onBackKey(e) {
 }
 
 function chechPolices () {
+    console.log('check start');
     var polices = JSON.parse(window.localStorage.getItem('polices'));
     polices.map(function(item, index) {
         var endDate = val.policyEndDate.split('.'),
@@ -450,6 +451,7 @@ function chechPolices () {
 
 function background() {
     if (cordova && cordova.plugins && cordova.plugins.backgroundMode) {
+        console.log('background start');
         // Android customization
         cordova.plugins.backgroundMode.setDefaults({});
         // Enable background mode
