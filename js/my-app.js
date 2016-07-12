@@ -448,16 +448,25 @@ function chechPolices () {
     setTimeout(chechPolices, 5000);
 }
 
+function background() {
+    if (cordova && cordova.plugins && cordova.plugins.backgroundMode) {
+        // Android customization
+        cordova.plugins.backgroundMode.setDefaults({});
+        // Enable background mode
+        cordova.plugins.backgroundMode.enable();
+
+        // Called when background mode has been activated
+        cordova.plugins.backgroundMode.onactivate = function () {
+            chechPolices();
+        }
+
+    } else {
+        setTimeout(background, 1000);
+    }
+}
+
 function onDeviceReady() {
     document.addEventListener("backbutton", onBackKey, false);
     myApp.init();
-    // Android customization
-    // cordova.plugins.backgroundMode.setDefaults({ text:'Doing heavy tasks.'});
-    // Enable background mode
-    cordova.plugins.backgroundMode.enable();
-
-    // Called when background mode has been activated
-    cordova.plugins.backgroundMode.onactivate = function () {
-        chechPolices();
-    }
+    background();
 }
