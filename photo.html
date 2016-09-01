@@ -1,0 +1,65 @@
+
+<div class="pages navbar-fixed">
+  <!-- Page, data-page contains page name-->
+  <div data-page="dtp" class="page">
+    <!-- Top Navbar-->
+    <div class="navbar">
+      <div class="navbar-inner">
+        <!-- We have home navbar without left link-->
+        <div class="left">
+          <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+        </div>
+        <div class="center sliding">Фото аварии</div>
+      </div>
+      <div class="list-block">
+        <ul> 
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title">Серия</div>
+                <div class="item-input">
+                  <select name="serial">
+                    <option value="ХХХ" selected="selected">ХХХ</option>
+                    <option value="ССС">ССС</option>
+                    <option value="ЕЕЕ">ЕЕЕ</option>
+                    <option value="ВВВ">ВВВ</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner"> 
+                <div class="item-title label">Номер</div>
+                <div class="item-input">
+                  <input name="number" type="number" placeholder="номер" maxlength="10"/>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-media"><img id="dkbm-captcha"/></div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner"> 
+                <div class="item-title label">Код с картинки</div>
+                <div class="item-input">
+                  <input name="code" type="text" placeholder="код" maxlength="7"/>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="content-block">
+              <input name="JSID" type="hidden"/><a href="#" id="check-polis" class="button open-preloader">Проверить</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
