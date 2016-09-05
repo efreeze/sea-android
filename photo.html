@@ -1,7 +1,7 @@
 
 <div class="pages navbar-fixed">
   <!-- Page, data-page contains page name-->
-  <div data-page="dtp" class="page">
+  <div data-page="photo" class="page">
     <!-- Top Navbar-->
     <div class="navbar">
       <div class="navbar-inner">
@@ -11,54 +11,47 @@
         </div>
         <div class="center sliding">Фото аварии</div>
       </div>
-      <div class="list-block">
-        <ul> 
-          <li>
-            <div class="item-content">
-              <div class="item-inner">
-                <div class="item-title">Серия</div>
-                <div class="item-input">
-                  <select name="serial">
-                    <option value="ХХХ" selected="selected">ХХХ</option>
-                    <option value="ССС">ССС</option>
-                    <option value="ЕЕЕ">ЕЕЕ</option>
-                    <option value="ВВВ">ВВВ</option>
-                  </select>
+    </div>
+    <div class="page-content">
+      <div class="content-block-title">Отправка фото аварии</div>
+      <div class="content-block">
+        <div class="list-block">
+          <ul> 
+            <li>
+              <div class="item-content">
+                <div class="item-inner"> 
+                  <div class="item-title label">Имя </div>
+                  <div class="item-input">
+                    <input name="name" type="text" placeholder="имя"/>
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <div class="item-inner"> 
-                <div class="item-title label">Номер</div>
-                <div class="item-input">
-                  <input name="number" type="number" placeholder="номер" maxlength="10"/>
+            </li>
+            <li>
+              <div class="item-content">
+                <div class="item-inner"> 
+                  <div class="item-title label">Фото </div>
+                  <div class="item-input">
+                    <input name="photo" type="file" placeholder="фото"/>
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <div class="item-media"><img id="dkbm-captcha"/></div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <div class="item-inner"> 
-                <div class="item-title label">Код с картинки</div>
-                <div class="item-input">
-                  <input name="code" type="text" placeholder="код" maxlength="7"/>
+            </li>
+            <li>
+              <div class="item-content">
+                <div class="item-inner"> 
+                  <div class="item-title label">Описание</div>
+                  <div class="item-input">
+                    <textarea name="desc" cols="15" placeholder="описание" rows="3"></textarea>
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="content-block">
-              <input name="JSID" type="hidden"/><a href="#" id="check-polis" class="button open-preloader">Проверить</a>
-            </div>
-          </li>
-        </ul>
+            </li>
+            <li>
+              <div class="content-block"><a href="#" id="check-polis" class="button open-preloader">Проверить</a></div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
