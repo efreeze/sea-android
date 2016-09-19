@@ -3,8 +3,9 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
+        xmlns:cdv="http://cordova.apache.org/ns/1.0"
         id        = "ru.efreeze.avark"
-        version   = "1.0.16">
+        version   = "1.0.18">
 
     <name>КОАП</name>
 
@@ -30,7 +31,7 @@
     <preference name="permissions"                value="none"/>
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version"      value="cli-6.3.0" />      <!-- all: current version of PhoneGap -->
+    <!-- <preference name="phonegap-version"      value="3.4.0" /> -->      <!-- all: current version of PhoneGap -->
     <preference name="orientation"                value="portrait" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="handset" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="false" />           <!-- all: hides the status bar at the top of the screen -->
@@ -112,6 +113,9 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <gap:config-file platform="ios" parent="UIBackgroundModes" overwrite="true">
+        <array><string>location</string></array>
+    </gap:config-file>
 
 
 </widget>
